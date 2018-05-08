@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Il Calcolapizza 2.1 - Calcolatore per le corrette quantità da utilizzare nel preparare l'impasto per pizza</title>
+    <meta name="description" content="Preciso e snello calcolatore di impasti per pizza, per quantificare ingredienti e lieviti: lievitazioni corrette a ogni temperatura e pizze perfette.">
+    <meta name="author" content="ilgufoblu.net">
+    <link rel="stylesheet" href="furtive.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="vegas.min.css">
+    <script src="jquery-1.11.3.min.js"></script>
+    <script src="vegas.min.js"></script>
+    <script src="calcolapizza2.js"></script>
+    <script src="calcola.js"></script>
+    
+    
+    
+</head>
+
+<body>
+    <div class="container">
+        <form id="calcolamelo" >
+            <img src="titolo.png" alt="Calcolapizza">
+            <div class="grd">
+                <div class="grd-row">
+                    <div class="grd-row-col-3-6--md grd-row-col-6" title="Inserire un numero intero maggiore di 0">
+                        <span class="titolo">Numero panielli</span>
+                        <input id="panielli" name="panielli" value="1">
+                    </div>
+                    <div class="grd-row-col-3-6--md grd-row-col-6" title="Inserire un numero positivo">
+                        <span class="titolo">Peso panielli (grammi)</span>
+                        <input id="peso" name="peso" value="200">
+                    </div>
+                </div>
+                <div class="grd-row">
+                    <div class="grd-row-col-3-6--md grd-row-col-6" title="Inserire un numero tra 50 e 100">
+                        <span class="titolo">Idratazione desiderata (% da 50 a 100)</span>
+                        <input id="idro" name="idro" class="nowprot" value="65">
+                    </div>
+                    <div class="grd-row-col-3-6--md grd-row-col-6" title="Inserire un numero tra 0 e 70">
+                        <span class="titolo">Sale per litro d'acqua (grammi)</span>
+                        <input id="salepl" name="salepl" value="50">
+                    </div>
+                </div>
+                <div class="grd-row">
+                    <div class="grd-row-col-3-6--md grd-row-col-6" title="Inserire un numero tra 3 e 96">
+                        <span class="titolo">Ore di lievitazione totali...</span>
+                        <input id="liev" name="liev" class="nowprot" value="24">
+                    </div>
+                    <div class="grd-row-col-3-6--md grd-row-col-6">
+                        <span class="titolo">... di cui Ore in frigorifero</span>
+                        <input id="frigo" name="frigo" value="0">
+                    </div>
+                </div>
+                <div class="grd-row">
+                    <div class="grd-row-col-3-6--md grd-row-col-6" title="Inserire un numero tra 15 e 35">
+                        <span class="titolo">Temperatura ambiente (°C)</span>
+                        <input id="gradi" name="gradi" value="20">
+                    </div>
+                    <div class="grd-row-col-3-6--md grd-row-col-6" title="Inserire un numero tra 0 e 150">
+                        <span class="titolo">Olio/strutto/burro (grammi per litro)</span>
+                        <input id="grassipl" name="grassipl" value="0">
+                    </div>
+                </div>
+                <div class="grd-row">
+                    <div class="grd-row-col-3-6--md grd-row-col-6" title="">
+                        <span class="titolo">Pasta di riporto (% su impasto totale)</span>
+                        <input id="pdrp" name="pdrp" value="0">
+                    </div>
+                    <div class="grd-row-col-3-6--md grd-row-col-6 radiogaga">
+                        <span class="titolo">Tipologia pasta di riporto</span>
+                        <input type="radio" name="pdrt" value="1"><span>Stanca</span>
+                        <input type="radio" name="pdrt" value="2" checked><span>Normale</span>
+                        <input type="radio" name="pdrt" value="3">Vivace
+                    </div>
+                </div>
+                <div class="grd-row wteglia">
+                    <div class="grd-row-col-3-6--md grd-row-col-6">
+                        <p>State preparando la <strong>pizza in teglia</strong>? Spuntate la casella qui <span class="hiddensmall">a destra</span><span class="hiddenbig">sotto</span> per apportare un'importante compensazione ed ottimizzare i risultati finali.</p>
+                    </div>
+                    <div class="grd-row-col-3-6--md grd-row-col-6">
+                        Pizza in teglia? <input id="teglia" name="teglia" type="checkbox">
+                    </div>
+                </div>                
+                </div>
+                <input name="mySubmit" type="submit" value="Submit!" />
+                </form>
+                <hr>
+                
+                <div id='risultati' style='display:none;'>
+                	<div class="grd-row">
+                    <div class="grd-row-col-3-6--md grd-row-col-6 txt--center">
+                        <div class="results">
+                            <span>Farina:</span>
+                            <span id="farina"></span>
+                        </div>
+                    </div>
+                    <div class="grd-row-col-3-6--md grd-row-col-6 txt--center">
+                        <div class="results">
+                            <span>Acqua:</span>
+                            <span id="aqua"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="grd-row">
+                    <div class="grd-row-col-3-6--md grd-row-col-6 txt--center">
+                        <div class="results">
+                            <span>Sale:</span>
+                            <span id="sale"></span>
+                        </div>
+                    </div>
+                    <div class="grd-row-col-3-6--md grd-row-col-6 txt--center">
+                        <div class="results">
+                            <span>Olio/Strutto/Burro:</span>
+                            <span id="grassi"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="grd-row">
+                    <div class="grd-row-col-3-6--md grd-row-col-6 txt--center">
+                        <div class="results">
+                            <span>Pasta di riporto:</span>
+                            <span id="pdr"></span>
+                        </div>
+                    </div>
+                    <div class="grd-row-col-3-6--md grd-row-col-6 txt--center">
+                        <div class="results">
+                            <span>Lievito di birra fresco:</span>
+                            <span id="lievito"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
+                
+                <footer class="grd-row">
+                    <div class="grd-row-col-6 txt--center">
+                        Presentato da:
+                        <br>
+                        <a href="http://laconfraternitadellapizza.forumfree.it/" target="_blank"><img src="logo.png" alt="La Confraternita della Pizza"></a>
+                    </div>
+                    <div class="grd-row">
+                        <div class="grd-row-col-3-6--md grd-row-col-6 txt--center">
+                            <div class="thanks">
+                                Ringraziamo per il prezioso aiuto i seguenti membri del <a href="http://laconfraternitadellapizza.forumfree.it/" target="_blank">forum</a>: DaiConan, Japi, Samuel Dodee, enrico1972, Maya_74, Tom_1978, Sandro N., Elpado, balos, Chiara e Tuorlo, miccio1978, •Silvia••, Milligrammo, Orex, Bestiada, Dekracap, giuseppe198122, maury1976, EdoYellow, cosimo747, Sirclaudio, dany.1974, giolecce, Meamb
+                            </div>
+                        </div>
+                        <div class="grd-row-col-3-6--md grd-row-col-6 txt--center">
+                            <div class="screenies">
+                                Per poter salvare uno <strong>screenshot</strong> dei risultati ottenuti, consigliamo la seguente estensione:<br>
+                                <a href="https://addons.mozilla.org/it/firefox/addon/fireshot/" target="_blank">Fireshot per Mozilla Firefox</a><br>
+                                <a href="https://chrome.google.com/webstore/detail/take-webpage-screenshots/mcbpblocgmgfnpjjppndjkmgjaogfceg?hl=it" target="_blank">Fireshot per Google Chrome</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+        
+    </div>
+</body>
+
+</html>

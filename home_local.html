@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Il Calcolapizza 2.1 - Calcolatore per le corrette quantità da utilizzare nel preparare l'impasto per pizza</title>
+    <meta name="description" content="Preciso e snello calcolatore di impasti per pizza, per quantificare ingredienti e lieviti: lievitazioni corrette a ogni temperatura e pizze perfette.">
+    <meta name="author" content="ilgufoblu.net">
+  
+  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+	<script>
+    	$(function(){
+	$("#calcolamelo").submit(function(e) {
+		e.preventDefault(); // avoid to execute the actual submit of the form.
+      	var url = "http://domenicomoreschini.altervista.org/cp/calcola.php"; // the script where you handle the form input.
+
+        $.ajax({
+               type: "POST",
+               dataType:"JSON",
+               url: url,
+               data: $("#calcolamelo").serialize(), // serializes the form's elements.
+               success: function(data)
+               {
+                   //alert(data); // show response from the php script.
+                   //$("#risultati").html(data.gradi);
+                   //$("#risultati").append($("<input/>").attr('type','text').val(data.gradi));
+                   //$("#risultati").append($("<input/>").attr('type','text').val(data.panielli));
+                   $("#risultati").find("#farina").html(data.gradi+" °");
+                   $("#risultati").show();
+
+               }
+             });
+
+
+        });
+      });
+
+    </script>
+</head>
+
+<style>
+	body { background-image:url('piza.jpg'); background-size:140%; background-position:fixed;  }
+    .gradient{
+    	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f094+0,f5ab66+47,ed3131+100&amp;0.9+0,0.9+100 */
+    	background: -moz-linear-gradient(-45deg,  rgba(247,240,148,0.9) 0%, rgba(245,171,102,0.9) 47%, rgba(237,49,49,0.9) 100%); /* FF3.6+ */
+    	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(247,240,148,0.9)), color-stop(47%,rgba(245,171,102,0.9)), color-stop(100%,rgba(237,49,49,0.9))); /* Chrome,Safari4+ */
+    	background: -webkit-linear-gradient(-45deg,  rgba(247,240,148,0.9) 0%,rgba(245,171,102,0.9) 47%,rgba(237,49,49,0.9) 100%); /* Chrome10+,Safari5.1+ */
+    	background: -o-linear-gradient(-45deg,  rgba(247,240,148,0.9) 0%,rgba(245,171,102,0.9) 47%,rgba(237,49,49,0.9) 100%); /* Opera 11.10+ */
+    	background: -ms-linear-gradient(-45deg,  rgba(247,240,148,0.9) 0%,rgba(245,171,102,0.9) 47%,rgba(237,49,49,0.9) 100%); /* IE10+ */
+    	background: linear-gradient(135deg,  rgba(247,240,148,0.9) 0%,rgba(245,171,102,0.9) 47%,rgba(237,49,49,0.9) 100%); /* W3C */
+    	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f7f094', endColorstr='#e6ed3131',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    }
+    
+   #av_toolbar_iframe, #av_toolbar_regdiv{ margin-top:-500px !important; }
+    
+    .margin-top-50{ margin-top:50px; }
+    
+</style>
+
+<body>
+
+  <div class='container gradient margin-top-50 rounded shadow-lg' style='min-height:500px;'>
+  	<div class='row'>
+    	<div class='col-sm'>
+        	<img src='titolo.png' class='img-fluid mx-auto'  />
+        	<form id="calcolamelo">
+            	<div class='row'>
+                	<div class='col-sm'>
+                    	<div class="form-group">
+                          <label class='control-label col-sm-12' for="numero_panielli">Numero panielli</label>
+                          <input type="number" class="form-control" id="numero_panielli" name="numero_panielli" placeholder="es. 4">
+                        </div>
+                    </div>
+                    <div class='col-sm'>
+                    	<div class="form-group">
+                          <label class='control-label col-sm-12' for="peso_panielli">Peso panielli <em>(in grammi)</em></label>
+                          <input type="number" class="form-control" id="peso_panielli" name="peso_panielli" placeholder="es. 50">
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                	<div class='col-sm'>
+                    	<div class="form-group">
+                          <label class='control-label col-sm-12' for="idratazione">Idratazione desiderata (% da 50 a 100)</label>
+                          <input type="range" class="form-control-range" id="idratazione" name="idratazione">
+                        </div>
+                    </div>
+                    <div class='col-sm'>
+                    	<div class="form-group">
+                          <label class='control-label col-sm-12' for="sale">Sale per litro d'acqua (grammi)</label>
+                          <input type="number" class="form-control" id="sale" name="sale">
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                	<div class='col-sm'>
+                    	<div class="form-group">
+                          <label class='control-label col-sm-12' for="lievitazione">Ore di lievitazione totali...</label>
+                          <input type="number" class="form-control" id="lievitazione" name="lievitazione">
+                        </div>
+                    </div>
+                    <div class='col-sm'>
+                    	<div class="form-group">
+                          <label class='control-label col-sm-12' for="lievitazione_frigorifero">... di cui Ore in frigorifero</label>
+                          <input type="number" class="form-control" id="lievitazione_frigorifero" name="lievitazione_frigorifero" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                	<div class='col-sm'>
+                    	<div class="form-group">
+                          <label class='control-label col-sm-12' for="temperatura_ambiente">Temperatura ambiente (°C)</label>
+                          <input type="number" class="form-control" id="temperatura_ambiente" name="temperatura_ambiente" placeholder="">
+                        </div>
+                    </div>
+                    <div class='col-sm'>
+                    	<div class="form-group">
+                          <label class='control-label col-sm-12' for="olio">Olio/strutto/burro <em>(grammi per litro)</em></label>
+                          <input type="number" class="form-control" id="olio" name="olio" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                	<div class='col-sm'>
+                    	<div class="form-group">
+                          <label class='control-label col-sm-12' for="pasta_di_riporto">Pasta di riporto <em>(% su impasto totale)</em></label>
+                          <input type="number" class="form-control" id="pasta_di_riporto" name="pasta_di_riporto" placeholder="">
+                        </div>
+                    </div>
+                    <div class='col-sm'>
+                    	<div class="form-group">
+                          <label class='control-label col-sm-12' for="tipologia_pasta_di_riporto">Tipologia pasta di riporto</label>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipologia_pasta_di_riporto" id="tipologia_pasta_di_riporto1" value="stanca">
+                            <label class="form-check-label" for="inlineRadio1">Stanca</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipologia_pasta_di_riporto" id="tipologia_pasta_di_riporto2" value="normale">
+                            <label class="form-check-label" for="inlineRadio2">Normale</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipologia_pasta_di_riporto" id="tipologia_pasta_di_riporto2" value="vivace">
+                            <label class="form-check-label" for="inlineRadio2">Vivace</label>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='row '>
+                	<div class='col-sm'>
+                    	<label class='control-label col-sm-12' for="pasta_di_riporto">State preparando la pizza in teglia? Spuntate la casella qui a destra per apportare un'importante compensazione ed ottimizzare i risultati finali.</label>
+                    </div>
+                    <div class='col-sm'>
+                    	
+                    </div>
+                </div>
+                <div class='row ' style='margin:30px 0px;' >
+                	<div class='col-sm'>
+                		<button type="submit" class="btn btn-info">calcola la tua pizza</button>
+                	</div>
+                </div>
+            </form>
+    	</div>
+    </div>
+  </div>
+
+</body>
+</html>
