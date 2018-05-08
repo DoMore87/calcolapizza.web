@@ -4,13 +4,21 @@ header("Access-Control-Allow-Origin: *");
 //header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 
-echo json_encode($_POST);
+$data = json_encode($_POST);
 
-/*$json = file_get_contents('php://input');
-$decode = json_decode($json);
-var_dump($decode);
-echo $decode->b;
-*/
-//var_dump(json_decode($json, true));
+echo $data;
+$panielli = $_POST["panielli"];
+$peso = $_POST["peso"];
+$idro = $_POST["idro"];
+$salepl = $_POST["salepl"];
+$liev = $_POST["liev"];
+$frigo = $_POST["frigo"];
+$gradi = $_POST["gradi"];
+$grassipl = $_POST["grassipl"];
+$prdp = $_POST["prdp"];
+$prdt = $_POST["prdt"];
+$teglia = $_POST["teglia"];
+
+
 
 ?>
