@@ -1,25 +1,24 @@
 $(function(){
 	$("#calcolamelo").submit(function(e) {
 
-      var url = "http://domenicomoreschini.altervista.org/cp/calcola.php"; // the script where you handle the form input.
+      var url = "http://domenicomoreschini.altervista.org/cp/calcola.php";
 
       $.ajax({
              type: "POST",
              dataType:"JSON",
              url: url,
-             data: $("#calcolamelo").serialize(), // serializes the form's elements.
+             data: $("#calcolamelo").serialize(),
              success: function(data)
              {
-                 alert(JSON.stringify(data)); // show response from the php script.
-                 //$("#risultati").html(data.gradi);
-                 //$("#risultati").append($("<input/>").attr('type','text').val(data.gradi));
-                 //$("#risultati").append($("<input/>").attr('type','text').val(data.panielli));
-                 //$("#risultati").find("#farina").html(data.gradi+" °");
-                 $("#risultati").show();
-                 
+                $("#farina").html(data.Farina + " g");
+                $("#aqua").html(data.Acqua + " g");
+                $("#sale").html(data.Sale + " g");
+                $("#grassi").html(data.Olio + " g");
+                $("#pdr").html(data.Pdr + " g");
+                $("#lievito").html(data.Lievito + " g");
+                $("#risultati").show();
              }
            });
-
-      e.preventDefault(); // avoid to execute the actual submit of the form.
+      e.preventDefault();
   });
 });
