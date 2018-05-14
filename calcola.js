@@ -10,11 +10,11 @@ $(function(){
              data: $("#calcolamelo").serialize(), // serializes the form's elements.
              success: function(data)
              {
-                 //alert(data); // show response from the php script.
+                 alert(JSON.stringify(data)); // show response from the php script.
                  //$("#risultati").html(data.gradi);
                  //$("#risultati").append($("<input/>").attr('type','text').val(data.gradi));
                  //$("#risultati").append($("<input/>").attr('type','text').val(data.panielli));
-                 $("#risultati").find("#farina").html(data.gradi+" °");
+                 //$("#risultati").find("#farina").html(data.gradi+" °");
                  $("#risultati").show();
                  
              }

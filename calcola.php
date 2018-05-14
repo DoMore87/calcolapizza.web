@@ -5,7 +5,7 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 
 $data = json_encode($_POST);
-
+//echo $data;
 $panielli = $_POST["panielli"];
 $peso = $_POST["peso"];
 $idro = $_POST["idro"];
@@ -14,14 +14,14 @@ $liev = $_POST["liev"];
 $frigo = $_POST["frigo"];
 $gradi = $_POST["gradi"];
 $grassipl = $_POST["grassipl"];
-$prdp = $_POST["prdp"];
-$prdt = $_POST["prdt"];
+$pdrp = $_POST["pdrp"];
+$pdrt = $_POST["pdrt"];
 $teglia = $_POST["teglia"];
 
 $coeff = $idro * ($salepl + $grassipl) + 1000 * ($idro + 100);
-if ($prdt == 1) {
+if ($pdrt == 1) {
     $coeffPdr = 0.00333;
-} elseif ($prdt = 2) {
+} elseif ($pdrt == 2) {
     $coeffPdr = 0.005;
 } else {
     $coeffPdr = 0.01;
@@ -45,16 +45,16 @@ $grassiRes = ($grassipl * $idro * ($pesoTot - $pdrRes) / $coeff);
 $lievitoRes = $farinaRes * $h - $coeffPdr * $pdrRes;
 
 
-$res["Farina"] = $farinaRes;
+//$res["Farina"] = $farinaRes;
 $res["FarinaInt"] = round($farinaRes, 0);
-$res["Acqua"] = $acquaRes;
+//$res["Acqua"] = $acquaRes;
 $res["AcquaInt"] = round($acquaRes, 0);
-$res["Sale"] = $saleRes;
+//$res["Sale"] = $saleRes;
 $res["SaleInt"] = round($saleRes, 0);
-$res["Olio"] = $grassiRes;
+//$res["Olio"] = $grassiRes;
 $res["OlioInt"] = round($grassiRes, 0);
 $res["Lievito"] = round($lievitoRes, 2);
-$res["Pasta di riporto"] = $pdrRes;
+//$res["Pasta di riporto"] = $pdrRes;
 $res["Pasta di riportoInt"] = round($pdrRes, 0);
 
 echo json_encode($res);
